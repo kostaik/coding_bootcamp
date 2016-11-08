@@ -1,0 +1,6 @@
+INSERT INTO [dbo].[Book] ([AuthorFirstName], [AuthorLastName], [Title], [BookLanguage], [ISBN], [Category]) VALUES (N'Dan', N'Brown', N'The Da Vinci Code', N'english', N'78-0-55215971-5', N'mystery')
+INSERT INTO [dbo].[Book] ([AuthorFirstName], [AuthorLastName], [Title], [BookLanguage], [ISBN], [Category]) VALUES (N'Jo', N'Nesbo', N'Blood on Snow', N'Norwegian', N'9780099593782', N'mystery')
+INSERT INTO [dbo].[Book] ([AuthorFirstName], [AuthorLastName], [Title], [BookLanguage], [ISBN], [Category]) VALUES (N'Fyodor', N'Dostoevsky', N'Crime and Punishment', N'russian', N'9780486454115', N'novel')
+INSERT INTO [dbo].[Book] ([AuthorFirstName], [AuthorLastName], [Title], [BookLanguage], [ISBN], [Category]) VALUES (N'Stephen', N'Hawking', N'A Brief History of Time', N'english', N'978-0-553-10953-5', N'science')
+INSERT INTO [dbo].[Book] ([AuthorFirstName], [AuthorLastName], [Title], [BookLanguage], [ISBN], [Category]) VALUES (N'Yann', N'Martel', N'Life of Pi', N'english', N'9780756933937', N'novel')
+INSERT INTO [dbo].[Book] ([AuthorFirstName], [AuthorLastName], [Title], [BookLanguage], [ISBN], [Category]) VALUES (N' George', N'Orwell ', N'Nineteen Eighty-Four', N'english', N'9787506261654', N'novel')

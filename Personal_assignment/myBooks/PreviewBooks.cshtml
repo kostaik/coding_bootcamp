@@ -1,0 +1,83 @@
+﻿@using Model;
+@using System.Data.Entity;
+@{
+    Layout = "~/Shared/_Layout.cshtml";
+    Page.Title = "Books";
+
+    var db = new Model();
+    // WebGrid grid;
+
+
+
+    var books = db.Books;
+
+    var lstbook = books.OrderBy(o => o.Title).ToList();
+    //  grid = new WebGrid(books);
+
+
+    if (IsPost)
+    {
+        if (!Request["delete"].IsEmpty())
+        {
+            var _id = Request["delete"];
+            var book = db.Books.First(x => x.ISBN == _id);
+            db.Books.Remove(book);
+            db.SaveChanges();
+            Response.Redirect("~/PreviewBooks");
+        }
+    }
+}
+
+
+
+
+<div class="row row-content">
+    <div class="col-xs-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title text-center" style="font-weight:600;">
+                    Books in my library
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center mythead">Title</th>
+                            <th class="text-center mythead">Author's First Name</th>
+                            <th class="text-center mythead">Author' Last Name</th>
+                            <th class="text-center mythead">Category</th>
+                            <th class="text-center mythead">Book's Language</th>
+                            <th class="text-center mythead">ISBN</th>
+                            <th class="text-center mythead"></th>
+
+                        </tr>
+                         </thead>
+                        @foreach (var book in lstbook)
+                        {
+                            <tbody>
+                                <tr class="text-center">
+                                    <td>@book.Title</td>
+                                    <td>@book.AuthorFirstName</td>
+                                    <td>@book.AuthorLastName</td>
+                                    <td>@book.Category</td>
+                                    <td>@book.BookLanguage</td>
+                                    <td>@book.ISBN</td>
+                                    <td>
+                                        <form action="~/PreviewBooks" method="post">
+                                            <input type="hidden" name="delete" value="@book.ISBN" />
+                                            <button type="submit" class="btn btn-xs btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

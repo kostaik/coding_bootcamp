@@ -1,0 +1,150 @@
+﻿@using Model;
+@using System.Data.Entity;
+
+
+@{
+    Layout = "~/Shared/_Layout.cshtml";
+    Page.Title = "myBooks";
+
+    var authorFirstName = "";
+    var authorLastName = "";
+    var title = "";
+    var category = "";
+    var bookLanguage = "";
+    var isbn = "";
+
+    bool error = false;
+
+    if (IsPost)
+    {
+        authorFirstName = Request.Form["authorFirstName"];
+        authorLastName = Request.Form["authorLastName"];
+        title = Request.Form["title"];
+        category = Request.Form["category"];
+        bookLanguage = Request.Form["bookLanguage"];
+        isbn = Request.Form["isbn"];
+
+        var book = new Book()
+        {
+
+            AuthorFirstName = authorFirstName,
+            AuthorLastName = authorLastName,
+            Title = title,
+            Category = category,
+            BookLanguage = bookLanguage,
+            ISBN = isbn,
+
+        };
+        try
+        {
+            var db = new Model();
+            db.Books.Add(book);
+            db.SaveChanges();
+            //Response.Redirect("~/PreviewBooks");
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="alert alert-success center-block" role="alert">
+                        <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>Book's details were stored in the database!</strong>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+        catch (Exception e)
+        {
+            error = true;
+        }
+    }
+
+}
+
+@if (error)
+{
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="alert alert-danger center-block" role="alert">
+                <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>ISBN already exists in the DB!</strong>
+            </div>
+        </div>
+    </div>
+    
+    
+   
+       
+}
+<div class="row">
+    <div class="col-xs-12 col-md-8 col-md-offset-1">
+
+        <fieldset>
+            <legend>Book Details</legend>
+
+            <form action="~/InsertBook" method="post" class="form-horizontal">
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">Author:</label>
+                    <div class="col-sm-4">
+
+
+
+                        <label for="authorFirstName" class="control-label">Author's First Name:</label>
+
+                        <input type="text" class="form-control" id="authorFirstName" name="authorFirstName" value="@authorFirstName" placeholder="Author's First Name">
+                    </div>
+                    <div class="col-sm-4">
+
+                        <label for="authorLastName" class="control-label">Author's Last Name:</label>
+
+                        <input type="text" class="form-control" id="authorLastName" name="authorLastName" value="@authorLastName" placeholder="Author's Last Name">
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="title" class="col-sm-3 control-label">Book Title:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="title" name="title" value="@title" placeholder="Book Title">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="category" class="col-sm-3 control-label">Book's Category:</label>
+                    <div class="col-sm-4">
+                        <select id="category" name="category" value="@category" class="form-control">
+                            <option value="">-</option>
+                            <option value="fiction1">Fiction</option>
+                            <option value="history">History</option>
+                            <option value="travel">Travel</option>
+                            <option value="science">Science</option>
+                            <option value="mystery">Mystery</option>
+                            <option value="health">Health</option>
+                            <option value="novel">Novel</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="bookLanguage" class="col-sm-3 control-label">Book's Language:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="bookLanguage" name="bookLanguage" value="@bookLanguage" placeholder="Book's' Language">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="isbn" class="col-sm-3 control-label">Book's ISBN:</label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="isbn" name="isbn" value="@isbn" placeholder="Book's ISBN">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-default btn-success col-sm-offset-4">Submit</button>
+            </form>
+        </fieldset>
+
+    </div>
+
+</div><!-- end of row-->
